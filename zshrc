@@ -85,13 +85,10 @@ local ZSH_CONF=/root/.zsh
 	if [[ -f '/opt/peepdf/peepdf.py' ]]; then
 		alias peepdf='python2.7 /opt/peepdf/peepdf.py'
 	fi
-	ENVS=(
-		envAngr
-		envFrida
-	)
-	for env in $ENVS; do
-		if [[ -d "/root/$env" ]]; then
-			alias $env=". /root/$env/bin/activate"
+
+	for env in /root/env*; do
+		if [[ -f "${env}/bin/activate" ]]; then
+			alias $(basename "$env")=". $env/bin/activate"
 		fi
 	done
 
