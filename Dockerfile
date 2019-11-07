@@ -8,6 +8,7 @@ RUN echo "export HOME=/root" >> /root/.bashrc
 COPY vimrc 	/root/.vimrc
 COPY tmux.conf 	/root/.tmux.conf
 COPY zshrc	/root/.zshrc
+COPY expl.py	/root/expl.py
 RUN touch .history
 
 # pkg
