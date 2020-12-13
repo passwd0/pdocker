@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM phusion/baseimage:latest-amd64
 LABEL Description='ctf_pwn image'
 LABEL maintainer='passwd@mes3hacklab.org'
 
@@ -94,14 +94,15 @@ RUN gem install one_gadget seccomp-tools && rm -rf /var/lib/gems/2.*/cache/*
 # radare2
 RUN git clone https://github.com/radareorg/radare2.git /root/radare2 && \
     cd /root/radare2 && ./sys/install.sh
-RUN r2pm init && r2pm update && r2pm -ci r2ghidra-dec
+RUN r2pm init && r2pm update && r2pm -ci r2ghidra
 
 # virtualenv
-RUN virtualenv -p python2.7 /root/envAngr && \
+RUN pip3 install virtualenv
+RUN virtualenv -p python3 /root/envAngr && \
     . /root/envAngr/bin/activate && \
     pip install angr && \
     deactivate
-RUN virtualenv -p python3.7 /root/envFrida && \
+RUN virtualenv -p python3 /root/envFrida && \
     . /root/envFrida/bin/activate && \
     pip install frida frida-tools && \
     deactivate
