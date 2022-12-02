@@ -6,7 +6,7 @@ is_set_path_manually=false
 ## init parameter
 _path=$(pwd)
 if [[ -n $1 ]]; then
-#	is_set_path_manually=true
+	is_set_path_manually=true
 	_path=$(pwd)${1}
 fi
 path_shared=$_path
@@ -26,9 +26,9 @@ path_shared=$_path
 #	path_shared=/tmp
 	name=chronos
 #fi
-#if $is_set_path_manually; then # is correct keep it separate because should overwrite path_shared
-#	path_shared=$_path
-#fi
+if $is_set_path_manually; then # is correct keep it separate because should overwrite path_shared
+	path_shared=$_path
+fi
 
 echo "instance name: $name"
 echo "instance path: $path_shared"
@@ -43,7 +43,7 @@ if [[ $(docker ps -f "name=${name}" | wc -l | xargs) == 1 ]]; then
 		--cap-add=SYS_PTRACE \
 		--security-opt seccomp=unconfined \
 		-p 3002:3002 \
-		pdocker/ctf:1.4
+		pdocker
 fi
 
 echo "starting instance"
